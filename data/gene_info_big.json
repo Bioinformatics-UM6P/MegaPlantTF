@@ -1,0 +1,77 @@
+{
+    "FAR1": {
+        "file_code": "FAR1",
+        "filename": "FAR1.fas",
+        "count": 7527
+    },
+    "LBD": {
+        "file_code": "LBD",
+        "filename": "LBD.fas",
+        "count": 7216
+    },
+    "HD-ZIP": {
+        "file_code": "HD-ZIP",
+        "filename": "HD-ZIP.fas",
+        "count": 8602
+    },
+    "GRAS": {
+        "file_code": "GRAS",
+        "filename": "GRAS.fas",
+        "count": 9304
+    },
+    "C3H": {
+        "file_code": "C3H",
+        "filename": "C3H.fas",
+        "count": 9693
+    },
+    "G2-like": {
+        "file_code": "G2-like",
+        "filename": "G2-like.fas",
+        "count": 9874
+    },
+    "B3": {
+        "file_code": "B3",
+        "filename": "B3.fas",
+        "count": 10609
+    },
+    "WRKY": {
+        "file_code": "WRKY",
+        "filename": "WRKY.fas",
+        "count": 14549
+    },
+    "MYB_related": {
+        "file_code": "MYB_related",
+        "filename": "MYB_related.fas",
+        "count": 15369
+    },
+    "bZIP": {
+        "file_code": "bZIP",
+        "filename": "bZIP.fas",
+        "count": 15498
+    },
+    "C2H2": {
+        "file_code": "C2H2",
+        "filename": "C2H2.fas",
+        "count": 17740
+    },
+    "NAC": {
+        "file_code": "NAC",
+        "filename": "NAC.fas",
+        "count": 19997
+    },
+    "ERF": {
+        "file_code": "ERF",
+        "filename": "ERF.fas",
+        "count": 21129
+    },
+    "MYB": {
+        "file_code": "MYB",
+        "filename": "MYB.fas",
+        "count": 22032
+    },
+    "bHLH": {
+        "file_code": "bHLH",
+        "filename": "bHLH.fas",
+        "count": 28698
+    }
+}

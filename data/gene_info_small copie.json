@@ -1,0 +1,218 @@
+{
+    "AP2": {
+        "file_code": "AP2",
+        "filename": "AP2.fas",
+        "count": 4461
+    },
+    "ARF": {
+        "file_code": "ARF",
+        "filename": "ARF.fas",
+        "count": 4578
+    },
+    "ARR-B": {
+        "file_code": "ARR-B",
+        "filename": "ARR-B.fas",
+        "count": 2354
+    },
+    "BBR-BPC": {
+        "file_code": "BBR-BPC",
+        "filename": "BBR-BPC.fas",
+        "count": 1256
+    },
+    "CAMTA": {
+        "file_code": "CAMTA",
+        "filename": "CAMTA.fas",
+        "count": 1343
+    },
+    "CPP": {
+        "file_code": "CPP",
+        "filename": "CPP.fas",
+        "count": 1612
+    },
+    "DBB": {
+        "file_code": "DBB",
+        "filename": "DBB.fas",
+        "count": 1651
+    },
+    "Dof": {
+        "file_code": "Dof",
+        "filename": "Dof.fas",
+        "count": 5655
+    },
+    "E2F/DP": {
+        "file_code": "E2F__DP",
+        "filename": "E2F__DP.fas",
+        "count": 1781
+    },
+    "EIL": {
+        "file_code": "EIL",
+        "filename": "EIL.fas",
+        "count": 1234
+    },
+    "GATA": {
+        "file_code": "GATA",
+        "filename": "GATA.fas",
+        "count": 5335
+    },
+    "GRF": {
+        "file_code": "GRF",
+        "filename": "GRF.fas",
+        "count": 1876
+    },
+    "GeBP": {
+        "file_code": "GeBP",
+        "filename": "GeBP.fas",
+        "count": 1564
+    },
+    "HB-PHD": {
+        "file_code": "HB-PHD",
+        "filename": "HB-PHD.fas",
+        "count": 477
+    },
+    "HB-other": {
+        "file_code": "HB-other",
+        "filename": "HB-other.fas",
+        "count": 2277
+    },
+    "HRT-like": {
+        "file_code": "HRT-like",
+        "filename": "HRT-like.fas",
+        "count": 249
+    },
+    "HSF": {
+        "file_code": "HSF",
+        "filename": "HSF.fas",
+        "count": 4574
+    },
+    
+    "LFY": {
+        "file_code": "LFY",
+        "filename": "LFY.fas",
+        "count": 253
+    },
+    "LSD": {
+        "file_code": "LSD",
+        "filename": "LSD.fas",
+        "count": 957
+    },
+    "M-type_MADS": {
+        "file_code": "M-type_MADS",
+        "filename": "M-type_MADS.fas",
+        "count": 7541
+    },
+    "MIKC_MADS": {
+        "file_code": "MIKC_MADS",
+        "filename": "MIKC_MADS.fas",
+        "count": 6918
+    },
+    "NF-X1": {
+        "file_code": "NF-X1",
+        "filename": "NF-X1.fas",
+        "count": 403
+    },
+    "NF-YA": {
+        "file_code": "NF-YA",
+        "filename": "NF-YA.fas",
+        "count": 2461
+    },
+    "NF-YB": {
+        "file_code": "NF-YB",
+        "filename": "NF-YB.fas",
+        "count": 3099
+    },
+    "NF-YC": {
+        "file_code": "NF-YC",
+        "filename": "NF-YC.fas",
+        "count": 2446
+    },
+    "NZZ/SPL": {
+        "file_code": "NZZ__SPL",
+        "filename": "NZZ__SPL.fas",
+        "count": 109
+    },
+    "Nin-like": {
+        "file_code": "Nin-like",
+        "filename": "Nin-like.fas",
+        "count": 2766
+    },
+    "RAV": {
+        "file_code": "RAV",
+        "filename": "RAV.fas",
+        "count": 690
+    },
+    "S1Fa-like": {
+        "file_code": "S1Fa-like",
+        "filename": "S1Fa-like.fas",
+        "count": 359
+    },
+    "SAP": {
+        "file_code": "SAP",
+        "filename": "SAP.fas",
+        "count": 164
+    },
+    "SBP": {
+        "file_code": "SBP",
+        "filename": "SBP.fas",
+        "count": 4168
+    },
+    "SRS": {
+        "file_code": "SRS",
+        "filename": "SRS.fas",
+        "count": 1327
+    },
+    "STAT": {
+        "file_code": "STAT",
+        "filename": "STAT.fas",
+        "count": 214
+    },
+    "TALE": {
+        "file_code": "TALE",
+        "filename": "TALE.fas",
+        "count": 4433
+    },
+    "TCP": {
+        "file_code": "TCP",
+        "filename": "TCP.fas",
+        "count": 4187
+    },
+    "Trihelix": {
+        "file_code": "Trihelix",
+        "filename": "Trihelix.fas",
+        "count": 6256
+    },
+    "VOZ": {
+        "file_code": "VOZ",
+        "filename": "VOZ.fas",
+        "count": 635
+    },
+    "WOX": {
+        "file_code": "WOX",
+        "filename": "WOX.fas",
+        "count": 2358
+    },
+    "Whirly": {
+        "file_code": "Whirly",
+        "filename": "Whirly.fas",
+        "count": 530
+    },
+    "YABBY": {
+        "file_code": "YABBY",
+        "filename": "YABBY.fas",
+        "count": 1719
+    },
+    "ZF-HD": {
+        "file_code": "ZF-HD",
+        "filename": "ZF-HD.fas",
+        "count": 2589
+    },
+    "CO-like": {
+        "file_code": "CO-like",
+        "filename": "CO-like.fas",
+        "count": 2125
+    },
+    "BES1": {
+        "file_code": "BES1",
+        "filename": "BES1.fas",
+        "count": 1549
+    }
+}

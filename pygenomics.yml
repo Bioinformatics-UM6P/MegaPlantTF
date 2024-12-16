@@ -1,0 +1,53 @@
+name: pygenomics
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+    - python=3.11.7
+    - bokeh
+    - dask
+    - dask-ml
+    - dask-labextension
+    - datashader
+    - featuretools
+    - gh
+    - git
+    - h5py
+    - holoviews
+    - hvplot
+    - imbalanced-learn
+    - jupyterlab
+    - jupyterlab-git
+    - jupyterlab-lsp
+    - jupyterlab-nvdashboard
+    - lightgbm
+    - matplotlib
+    - numba
+    - numpy
+    - optuna
+    - pandas
+    - panel
+    - ipykernel
+    - papermill
+    - nbconvert
+    - seaborn
+    - pip=23.3.1
+    - xarray=2023.6.0
+    - py-xgboost=2.0.3
+  
+    - pip:
+        - tensorboard==2.16.2
+        - tensorboard-data-server==0.7.2
+        - tensorflow==2.16.1
+        - tensorflow-io-gcs-filesystem==0.36.0
+        - pyarrow==14.0.2
+        - pyviz_comms==3.0.0
+        - scikit-learn==1.5.0
+        - scipy==1.11.4
+        - umap==0.1.1
+        - umap-learn==0.5.6
+        - wandb==0.17.0
+        - keras==3.2.1
+        - keras-tuner==1.4.7

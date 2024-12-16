@@ -1,0 +1,72 @@
+def build_kmer_representation_v2(df_path, domaine="ACDEFGHIKLMNPQRSTVWYX", k=3, gene_family="default_family", dtypes=['float64', 'int64'], asCudaDF=False, batch_size=1000, feature_mask=None, temp_dir='./temp_batches'):
+    """
+    Utils: For given k-mer generate dataset and return vectorized version
+    """
+    # Read the input DataFrame
+    df = pd.read_csv(df_path)
+    sequences = df['sequence']
+    y = df['class']
+    
+    # Initialize DictVectorizer
+    v = DictVectorizer(sparse=True)
+    
+    # Create directories to store intermediate batch files
+    gene_family_dir = os.path.join(temp_dir, gene_family)
+    k_dir = os.path.join(gene_family_dir, f'k_{k}')
+    
+    if not os.path.exists(k_dir):
+        os.makedirs(k_dir)
+    
+    batch_files = []
+    batch_y_files = []
+    
+    # Check if batch files already exist
+    if os.listdir(k_dir):
+        # Read existing batch files
+        for f in os.listdir(k_dir):
+            if f.startswith('batch_') and f.endswith('.csv'):
+                batch_files.append(os.path.join(k_dir, f))
+            if f.startswith('y_batch_') and f.endswith('.csv'):
+                batch_y_files.append(os.path.join(k_dir, f))
+    else:
+        # Process in batches and save each batch to a file
+        for i in range(0, len(sequences), batch_size):
+            batch_sequences = sequences[i:i + batch_size]
+            batch_kmers_count = [DNA.kmer_count_v2(sequence, domaine, k=k, step=1) for sequence in batch_sequences]
+            
+            # Vectorize the kmer counts for the current batch
+            feature_values = v.fit_transform(batch_kmers_count)
+            feature_names = v.get_feature_names_out()
+            
+            # Convert to DataFrame
+            X_batch = pd.DataFrame.sparse.from_spmatrix(feature_values, columns=feature_names)
+            X_batch = X_batch.sparse.to_dense()
+            
+            # Save the current batch and corresponding y values to files
+            batch_file = os.path.join(k_dir, f'batch_{i // batch_size}.csv')
+            y_batch_file = os.path.join(k_dir, f'y_batch_{i // batch_size}.csv')
+            X_batch.to_csv(batch_file, index=False)
+            pd.DataFrame(y[i:i + batch_size]).to_csv(y_batch_file, index=False)
+            batch_files.append(batch_file)
+            batch_y_files.append(y_batch_file)
+    
+    # Combine all batch files into a single DataFrame
+    X = pd.concat([pd.read_csv(f) for f in batch_files], ignore_index=True)
+    y = pd.concat([pd.read_csv(f) for f in batch_y_files], ignore_index=True).iloc[:, 0]
+    
+    # Apply feature mask if provided
+    if feature_mask is not None:
+        # Ensure feature_mask is a set for quick lookup
+        feature_mask_set = set(feature_mask)
+        current_features = set(X.columns)
+        for feature in feature_mask_set - current_features:
+            X[feature] = 0
+        X = X[feature_mask]
+    
+    if asCudaDF:
+        import cudf
+        X_cuda = cudf.DataFrame.from_pandas(X)
+        y_cuda = cudf.Series(y)
+        return X_cuda, y_cuda, feature_names
+    
+    return X, y, feature_names

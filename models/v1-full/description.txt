@@ -1,0 +1,1 @@
+The `v1-full` folder contains pretrained models for various gene families, built using the entire dataset. These models are more comprehensive compared to those in the other folders, which were constructed using only 10% of the dataset volume due to computational constraints.

@@ -1,0 +1,22 @@
+{
+  "version": "1.2",
+  "dbname": "pygenomics_ref_db",
+  "dbtype": "Protein",
+  "db-version": 5,
+  "description": "./BLAST/trainset.fasta",
+  "number-of-letters": 96539014,
+  "number-of-sequences": 256279,
+  "last-updated": "2024-07-07T09:42:00",
+  "number-of-volumes": 1,
+  "bytes-total": 125459990,
+  "bytes-to-cache": 98845638,
+  "files": [
+    "pygenomics_ref_db.pdb",
+    "pygenomics_ref_db.phr",
+    "pygenomics_ref_db.pin",
+    "pygenomics_ref_db.pot",
+    "pygenomics_ref_db.psq",
+    "pygenomics_ref_db.ptf",
+    "pygenomics_ref_db.pto"
+  ]
+}
