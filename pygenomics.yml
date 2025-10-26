@@ -1,4 +1,4 @@
-name: pygenomics
+name: MegaPlantTF
 
 channels:
   - conda-forge
