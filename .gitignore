@@ -1,2 +1,3 @@
-models/*
+/models/Binary-Classifier/
+/models/MetaClassifier/
 .DS_Store
