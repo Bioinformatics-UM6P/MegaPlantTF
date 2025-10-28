@@ -9,7 +9,7 @@ gUIDE FOR HANDONS
 First, create the `MegaPlantTF` environment from the provided YAML file.
 
 ```bash
-conda env create -f ../pygenomics.yml
+conda env create -f ../env.yml
 ```
 
 ### Step 2: Activate Conda Environment
