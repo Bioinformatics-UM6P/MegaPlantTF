@@ -24,8 +24,8 @@ class SingleKModel:
         self.domaine="ACDEFGHIKLMNPQRSTVWYX"
         self.gene_info_path = "../data/gene_info.json"
         #self.pretained_model_path = "../models/v1-beta/models"
-        self.pretained_model_path = "../notebook/Output/Model-ANOVA"
-        self.stage2_classifier_path = f"../notebook/Output/MetaClassifier-ANOVA/META_k{self.k}.keras"
+        self.pretained_model_path = "../models/Binary-Classifier"
+        self.stage2_classifier_path = f"../models/MetaClassifier/META_k{self.k}.keras"
         self.use_weight = False
         with open(self.gene_info_path, 'r') as json_file:
             self.gene_info = json.load(json_file)

@@ -51,3 +51,7 @@ dependencies:
         - wandb==0.17.0
         - keras==3.2.1
         - keras-tuner==1.4.7
+        - ipywidgets
+        - shap
+        - lime
+        - biopython
