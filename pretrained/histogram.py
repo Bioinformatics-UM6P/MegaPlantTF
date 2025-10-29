@@ -129,10 +129,26 @@ class GenBoard:
                         plt.text(bar.get_x() + bar.get_width() / 2.0, height, str(count), ha='center', va='bottom')
 
                 # Add legend with clickable behavior
-                legend = plt.legend(['Above Threshold Observations', 'Predicted Genes after voting'], loc='upper right')
-                for leg in legend.legendHandles:
-                    leg.set_picker(True)  # Enable picking on the legend handles
-                    leg.set_alpha(1)  # Set initial alpha to 1 (fully visible)
+                # legend = plt.legend(['Above Threshold Observations', 'Predicted Genes after voting'], loc='upper right')
+                # for leg in legend.legendHandles:
+                #     leg.set_picker(True)  # Enable picking on the legend handles
+                #     leg.set_alpha(1)  # Set initial alpha to 1 (fully visible)
+
+                legend = plt.legend(
+                    ['Above Threshold Observations', 'Predicted Genes after voting'],
+                    loc='upper right'
+                )
+                handles = getattr(legend, 'legendHandles', None)
+                if handles is None:
+                    handles = []
+                    handles.extend(list(getattr(legend, 'get_lines', lambda: [])()))
+                    handles.extend(list(getattr(legend, 'get_patches', lambda: [])()))
+                for h in handles:
+                    try:
+                        h.set_picker(True)
+                        h.set_alpha(1)
+                    except Exception:
+                        pass
 
                 plt.tight_layout()
                 plt.show()
@@ -334,11 +350,17 @@ class GenBoard:
                 def highlight_unknown_cells(val):
                     return 'background-color: #add8e6' if val == '✗' else ''
     
+                # if voting == 'Two-Stage Voting' and self.two_stage_prediction is not None:
+                #     styled_df = filtered_df2.style.applymap(highlight_cells, subset=pd.IndexSlice[:, self.two_stage_prediction.columns])
+                # else:
+                #     styled_df = filtered_df.style.applymap(highlight_cells, subset=pd.IndexSlice[:, self.prediction.columns])
+                # styled_df = styled_df.applymap(highlight_unknown_cells, subset=['Unknown Gene Family'])
                 if voting == 'Two-Stage Voting' and self.two_stage_prediction is not None:
-                    styled_df = filtered_df2.style.applymap(highlight_cells, subset=pd.IndexSlice[:, self.two_stage_prediction.columns])
+                    styled_df = filtered_df2.style.map(highlight_cells, subset=pd.IndexSlice[:, self.two_stage_prediction.columns])
                 else:
-                    styled_df = filtered_df.style.applymap(highlight_cells, subset=pd.IndexSlice[:, self.prediction.columns])
-                styled_df = styled_df.applymap(highlight_unknown_cells, subset=['Unknown Gene Family'])
+                    styled_df = filtered_df.style.map(highlight_cells, subset=pd.IndexSlice[:, self.prediction.columns])
+                styled_df = styled_df.map(highlight_unknown_cells, subset=pd.IndexSlice[:, ['Unknown Gene Family']])
+
                 styled_df = styled_df.set_table_styles([{'selector': 'table', 'props': [('min-width', '1800px')]}])
                 display(styled_df)
     
@@ -478,7 +500,7 @@ class GenBoard:
 
     def create_about_tab(self):
         version_info = {
-            "Application Name": "GenBoard",
+            "Application Name": "MegaPlantTF",
             "Version": "1.0.0",
             "Python Version": platform.python_version(),
             "Operating System": platform.system(),
