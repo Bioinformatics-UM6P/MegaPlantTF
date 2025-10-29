@@ -26,14 +26,20 @@ conda activate MegaPlantTF
 python -m ipykernel install --user --name MegaPlantTF --display-name "MegaPlantTF"
 ```
 
-### Step 3: Download Pretrained Model Weights & testset for lab
+### Step 3: Install Git Large File Storage to be able to download the model weights
+```bash
+sudo  apt-get install git-lfs
+git lfs install
+```
+
+### Step 4: Download Pretrained Model Weights & testset for lab
 ```bash
 # d into workshop folder
 cd MegaPlantTF/workshop
 
 # clone to temp
 tmpdir="$(mktemp -d)"
-git clone https://huggingface.co/Genereux-akotenou/genomics-tf-prediction "$tmpdir/repo"
+git lfs clone https://huggingface.co/Genereux-akotenou/genomics-tf-prediction "$tmpdir/repo"
 
 # force overwrite into your local root
 rsync -av --delete "$tmpdir/repo/Binary-Classifier/" "../models/Binary-Classifier/"
@@ -42,7 +48,7 @@ rsync -av "$tmpdir/repo/testset/testset.csv" "../data/testset-full/k3/"
 rm -rf "$tmpdir"
 ```
 
-### Step 4: Start Jupyter-lab
+### Step 5: Start Jupyter-lab
 
 Start JupyterLab to begin working with MegaPlantTF.
 
