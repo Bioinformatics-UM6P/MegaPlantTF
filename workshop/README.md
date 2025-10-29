@@ -9,7 +9,7 @@ This hands-on workshop walks you through:
 
 ### Step 1: Create & Activate Conda Environment
 
-First, create the `MegaPlantTF` environment from the provided YAML file.
+Open your terminal in the current folder then create the `MegaPlantTF` environment from the provided YAML file.
 
 ```bash
 conda env create -f ../env.yml
