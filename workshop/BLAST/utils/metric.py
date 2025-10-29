@@ -1,6 +1,6 @@
 def show_metrics(true_labels, predicted_labels):
     import sklearn.metrics as metrics
-    from IPython.core.display import display, HTML
+    from IPython.display import display, HTML
     
     # accuracy
     accuracy = metrics.accuracy_score(true_labels, predicted_labels)
@@ -69,7 +69,7 @@ def show_confusion(true_labels, predicted_labels, class_mapping_rules):
     import sklearn.metrics as metrics
     import pandas as pd
     import platform, base64, io
-    from IPython.core.display import display, HTML
+    from IPython.display import display, HTML
     import matplotlib.pyplot as plt
     import seaborn as sns
 
