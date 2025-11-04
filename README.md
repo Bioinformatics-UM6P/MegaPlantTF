@@ -1,10 +1,37 @@
-# pygenomics
-`pygenomics` is an all-in-one tool designed for the analysis and classification of genomic data using advanced machine learning techniques. The project focuses on creating and utilizing models trained on various gene families to predict and classify sequences based on k-mer methods. 
+# MegaPlantTF
+
+<div align="center" style="">
+  <br>
+  <img src="./webtool/ui/static/banner/banner-6.png"/ style="height: 6em; width: 12em">
+  <br>
+  <!-- <h1>GeneLM</h1> -->
+  MegaPlantTF: a comprehensive machine learning framework for the identification and classification of plant transcription factors.
+  <br>
+  <br>
+
+  [![DOI:10.1101/2025.03.20.644312](https://zenodo.org/badge/DOI/10.1093/bib/bbaf311.svg)](https://doi.org/10.1093/bib/bbaf311)
+  [![Hugging Face](https://img.shields.io/badge/Hugging_Face-MegaPlantTF-orange?style=flat&logo=HuggingFace&logoColor=)](https://huggingface.co/Genereux-akotenou/genomics-tf-prediction)
+  [![Conda](https://img.shields.io/badge/Conda-Supported-brightgreen?style=flat&logo=anaconda&logoColor=white)](https://anaconda.org/bioinformatics-um6p/megaplanttf)
+</div>
+
+`MegaPlantTF` is a machine learning–based framework designed to identify and classify plant transcription factors (TFs) across multiple species.
+The project leverages curated data from PlantTFDB and advanced k-mer–based feature representations to train robust, family-specific binary classifiers.
+By integrating feature selection (ANOVA), ensemble learning, and interpretable post-processing, `MegaPlantTF` provides both state-of-the-art prediction accuracy and user-friendly analysis tools for TF research.
+
+With `MegaPlantTF`, you can:
+
+- 🌱 Predict Transcription Factors: Identify and classify TF families from plant proteomes using pretrained binary and stacking models.
+- 🧬 K-mer Embedding for Proteins: Convert protein sequences into numerical k-mer feature vectors for model inference.
+- 📊 Comprehensive Evaluation: Generate detailed classification reports with accuracy, precision, recall, F1-score, and confidence thresholds.
+- ⚙️ Flexible Inference Options: Apply max-voting or two-stage stacking classifiers for improved family-level predictions.
+- 🧠 Integrate with PyGenomics: Seamlessly run MegaPlantTF as part of the pygenomics suite for reproducible analysis pipelines.
+
+<!-- `pygenomics` is an all-in-one tool designed for the analysis and classification of genomic data using advanced machine learning techniques. The project focuses on creating and utilizing models trained on various gene families to predict and classify sequences based on k-mer methods. 
 With `pygenomics`, you can:
 - **Access Pretrained Models**: Utilize pretrained models for different gene families.
 - **K-mer Methods for Sequence Classification**: Represent and classify data using k-mer methods.
 - **Generate Detailed Reports**: Produce comprehensive classification reports with metrics such as F1 score, recall, accuracy, precision, and confusion matrices.
-- **Flexible Prediction Models**: Employ both single k-mer size or multi k-mer models for your predictions.
+- **Flexible Prediction Models**: Employ both single k-mer size or multi k-mer models for your predictions. -->
 
 
 ## 1- Setup Environment

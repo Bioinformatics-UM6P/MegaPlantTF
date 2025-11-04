@@ -12,7 +12,7 @@ This hands-on workshop walks you through:
 Open your terminal in the current folder then create the `MegaPlantTF` environment from the provided YAML file.
 
 ```bash
-conda env create -f ../env.yml
+conda env create -f ../MegaPlantTF.yml
 ```
 
 Activate the MegaPlantTF environment.
