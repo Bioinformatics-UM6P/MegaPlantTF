@@ -19,19 +19,13 @@
 - Predict Transcription Factors: Identify and classify TF families from plant proteomes using pretrained binary and stacking models.
 - Comprehensive Evaluation: Generate detailed classification reports with accuracy, precision, recall, F1-score, and confidence thresholds.
 - Flexible Inference Options: Apply max-voting or two-stage stacking classifiers for improved family-level predictions.
-  
-
-
-
-<!-- <br>
-<div style="padding: 0.5em; background: #0b75b6; color: #fff; font-size: 1.1em;">
-1- Install MegaPlantTF
-</div> -->
-<!-- ## 1- Install MegaPlantTF -->
 
 <br>
 
 ![Step 1 - Install MegaPlantTF](https://img.shields.io/badge/Step%201-Install%20MegaPlantTF-0b75b6?style=for-the-badge&logo=python&logoColor=white)
+
+
+<img src="https://img.shields.io/badge/Step%201-Install%20MegaPlantTF-0b75b6?style=for-the-badge&logo=python&logoColor=white" width="100%; height: 1em;"/>
 
 
 #### Step 1: Create & Activate Conda Environment
