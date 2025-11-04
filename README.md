@@ -22,11 +22,7 @@
 
 <br>
 
-![Step 1 - Install MegaPlantTF](https://img.shields.io/badge/Step%201-Install%20MegaPlantTF-0b75b6?style=for-the-badge&logo=python&logoColor=white)
-
-
-<img src="https://img.shields.io/badge/Step%201-Install%20MegaPlantTF-0b75b6?style=for-the-badge&logo=python&logoColor=white" width="100%; height: 1em;"/>
-
+![Step 1 - Install MegaPlantTF Conda Environment](https://img.shields.io/badge/Step%201-Install%20MegaPlantTF%20Conda%20Environmment-0b75b6?style=for-the-badge&logo=&logoColor=white)
 
 #### Step 1: Create & Activate Conda Environment
 
@@ -48,19 +44,94 @@ conda activate MegaPlantTF
 python -m ipykernel install --user --name MegaPlantTF --display-name "MegaPlantTF"
 ```
 
-#### Step 3: Start Jupyter Notebook
-
-Start Jupyter Notebook to begin working with MegaPlantTF.
-
-```bash
-jupyter notebook
-```
 
 <br>
-<div style="padding: 0.5em; background: #0b75b6; color: #fff; font-size: 1.1em;">
-2- Build pretrained model
-</div>
-<!-- ## 2- Build pretrained model -->
+
+![Step 2 - Use MegaPlantTF for TF prediction in plant](https://img.shields.io/badge/Step%202-Use%20MegaPlantTF%20for%20TF%20prediction%20in%20plant-0b75b6?style=for-the-badge&logo=&logoColor=white)
+
+Before proceeding, make sure you’ve completed **Step 1** and correctly set up the **MegaPlantTF conda environment**.  
+In this step, you’ll download the pretrained model weights, copy them to the right folders, and start the prediction workflow.
+
+#### Install Git Large File Storage to be able to download the model weights
+```bash
+sudo  apt-get install git-lfs
+git lfs install
+```
+
+#### Download Pretrained Model Weights & testset for lab
+```bash
+# cd into MegaPlantTF folder if it not the case yet
+cd MegaPlantTF
+
+# Download all the binary models in temp folder
+tmpdir="$(mktemp -d)"
+git lfs clone https://huggingface.co/Genereux-akotenou/genomics-tf-prediction "$tmpdir/repo"
+
+# copy models from temp folder to `models`folder in MegaPlantTF.
+rsync -av --delete "$tmpdir/repo/Binary-Classifier/" "./models/Binary-Classifier/"
+rsync -av --delete "$tmpdir/repo/MetaClassifier/"   "./models/MetaClassifier/"
+rm -rf "$tmpdir"
+```
+
+#### Start Jupyter-lab
+
+Once setup is complete, start JupyterLab to explore the example notebooks.
+```bash
+jupyter-lab
+```
+
+#### Identify and classify TFs
+
+You can start directly with the notebook [start/1-Start-With-MegaPlantTF.ipynb](./start/1-Start-With-MegaPlantTF.ipynb) Or, you can create your own Python script or notebook. First, make sure the project’s root directory is added to sys.path
+
+```python
+import sys, os
+current_directory = os.getcwd()
+root_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+sys.path.append(root_directory)
+```
+
+Then, import the predictor classes and run inference:
+```python
+from pretrained.predictor import SingleKModel, MultiKModel
+
+# Example for SingleKModel
+kmodel = SingleKModel(kmer_size=3)
+kmodel.load("Ach_pep_kiwi.fas", format="fasta")
+genboard = kmodel.predict()
+genboard.display()
+```
+<img src="genboard.png" alt="genbaord beta image" style="width: 97%;"/>
+
+
+<br>
+<br>
+
+![Step 3 - Inspect and Reproduce our Results / Train on your own data](https://img.shields.io/badge/Step%203-Inspect%20and%20Reproduce%20our%20Results%20/%20Train%20on%20your%20own%20data-0b75b6?style=for-the-badge&logo=&logoColor=white)
+
+
+You can find the results in the `notebook/Output` directory. Here's what you will find:
+
+1. **Model Files**:
+    - Located in `notebook/Output/Model` (after training).
+    - Inside this directory, you will find folders named after gene families.
+    - Each gene family folder contains:
+        - Model `.h5` files for various k-mer sizes.
+        - `feature_mask.json` files.
+
+2. **Reports**:
+    - Located in `notebook/Output/Reports` (after training).
+    - Each report is specific to a gene family.
+    - Reports include:
+        - Model architecture and parameters.
+        - Learning curve.
+        - Train set class distribution.
+        - Classification metrics: F1 score, recall, accuracy, precision.
+        - Confusion matrix for each k-mer size.
+
+<br>
+
+##### Build pretrained model
 
 We have to move into notebook folder and execute the python file named `pyrunner`
 
@@ -121,49 +192,3 @@ The next step is to run this file then till the program finish
 ```bash
 python pyrunner
 ```
-
-## 3- Pretrained Model and documentation
-
-After running the notebook, you can find the results in the `Output` directory. Here's what you will find:
-
-1. **Model Files**:
-    - Located in `Output/Model`.
-    - Inside this directory, you will find folders named after gene families.
-    - Each gene family folder contains:
-        - Model `.h5` files for various k-mer sizes.
-        - `feature_mask.json` files.
-
-2. **Reports**:
-    - Located in `Output/Reports`.
-    - Each report is specific to a gene family.
-    - Reports include:
-        - Model architecture and parameters.
-        - Learning curve.
-        - Train set class distribution.
-        - Classification metrics: F1 score, recall, accuracy, precision.
-        - Confusion matrix for each k-mer size.
-
-## 4- How to Make Predictions Using the Model
-
-To make predictions using the trained model, follow these steps:
-
-1. **Set the k-mer Size**:
-    - Choose the k-mer size you want to use for predictions.
-    - You can use a single k-mer model or a multi k-mer model.
-
-2. **Import the Prediction Classes**:
-    - Import `SingleKModel` or `MultiKModel` from the `pretrained.predictor` module located in the `notebook` directory.
-
-3. **Create a Notebook or Python File**:
-    - Create a new notebook or Python file and include the following code:
-
-```python
-from pretrained.predictor import SingleKModel, MultiKModel
-
-# Example for SingleKModel
-kmodel = SingleKModel(kmer_size=3)
-kmodel.load("Ach_pep_kiwi.fas", format="fasta")
-genboard = kmodel.predict()
-genboard.display()
-```
-<img src="genboard.png" alt="genbaord beta image" style="width: 97%;"/>
