@@ -1,8 +1,25 @@
 <div align="center" style="">
+    <br>
+    <img src="./logo.png"/ style="height: 5em;">
+    <br>
+    <svg xmlns="http://www.w3.org/2000/svg" width="" height="80">
+        <!-- Background with red border -->
+        <rect x="2" y="2" width="99%" height="76" rx="8" ry="8"
+                fill="#fffaf8" stroke="#e63946" stroke-width="3"/>
+        <!-- Main text -->
+        <text x="50%" y="45%" font-size="16" font-family="Arial, sans-serif"
+                text-anchor="middle" fill="#000">
+            🔗 Soon available online at
+        </text>
+        <!-- Clickable link -->
+        <a href="https://bioinformatics.um6p.ma/" target="_blank">
+            <text x="50%" y="70%" font-size="15" font-family="Arial, sans-serif"
+                text-anchor="middle" fill="#0b75b6" text-decoration="underline">
+            https://bioinformatics.um6p.ma/
+            </text>
+        </a>
+    </svg>
   <br>
-  <img src="./logo.png"/ style="height: 5em;">
-  <br>
-  <!-- <h1>GeneLM</h1> -->
   MegaPlantTF: a comprehensive machine learning framework for the identification and classification of plant transcription factors.
   <br>
   <br>
@@ -11,6 +28,8 @@
   [![Hugging Face](https://img.shields.io/badge/Hugging_Face-MegaPlantTF-orange?style=flat&logo=HuggingFace&logoColor=)](https://huggingface.co/Genereux-akotenou/genomics-tf-prediction)
   [![Conda](https://img.shields.io/badge/Conda-Supported-brightgreen?style=flat&logo=anaconda&logoColor=white)](https://anaconda.org/bioinformatics-um6p/megaplanttf)
 </div>
+
+<br>
 
 ## MegaPlantTF
 
