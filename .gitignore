@@ -9,3 +9,5 @@ pretrained/__pycache__/histogram.cpython-311.pyc
 /data/testset-full/k3/testset.csv
 /workshop/BLAST/blast_result.txt
 workshop/BLAST/utils/__pycache__/metric.cpython-311.pyc
+.ipynb_checkpoints
+.vscode/
