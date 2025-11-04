@@ -20,11 +20,19 @@
 - Comprehensive Evaluation: Generate detailed classification reports with accuracy, precision, recall, F1-score, and confidence thresholds.
 - Flexible Inference Options: Apply max-voting or two-stage stacking classifiers for improved family-level predictions.
   
-<br>
+
+
+
+<!-- <br>
 <div style="padding: 0.5em; background: #0b75b6; color: #fff; font-size: 1.1em;">
 1- Install MegaPlantTF
-</div>
+</div> -->
 <!-- ## 1- Install MegaPlantTF -->
+
+<br>
+
+![Step 1 - Install MegaPlantTF](https://img.shields.io/badge/Step%201-Install%20MegaPlantTF-0b75b6?style=for-the-badge&logo=python&logoColor=white)
+
 
 #### Step 1: Create & Activate Conda Environment
 
