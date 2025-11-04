@@ -131,15 +131,8 @@ genboard.display()
 
 You can find the results in the `notebook/Output` directory. Here's what you will find:
 
-1. **Model Files**:
-    - Located in `notebook/Output/Model` (after training).
-    - Inside this directory, you will find folders named after gene families.
-    - Each gene family folder contains:
-        - Model `.h5` files for various k-mer sizes.
-        - `feature_mask.json` files.
-
-2. **Reports**:
-    - Located in `notebook/Output/Reports` (after training).
+1. **Reports**:
+    - Located in `models/Train-Reports` (Acutual report are available).
     - Each report is specific to a gene family.
     - Reports include:
         - Model architecture and parameters.
@@ -147,6 +140,12 @@ You can find the results in the `notebook/Output` directory. Here's what you wil
         - Train set class distribution.
         - Classification metrics: F1 score, recall, accuracy, precision.
         - Confusion matrix for each k-mer size.
+2. **Model Files**:
+    - Located in `notebook/Output/Model` (after training).
+    - Inside this directory, you will find folders named after gene families.
+    - Each gene family folder contains:
+        - Model `.h5` files for various k-mer sizes.
+        - `feature_mask.json` files.
 
 <br>
 
