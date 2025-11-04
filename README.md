@@ -12,10 +12,10 @@
             🔗 Soon available online at
         </text>
         <!-- Clickable link -->
-        <a href="https://bioinformatics.um6p.ma/" target="_blank">
+        <a href="https://bioinformatics.um6p.ma/platform" target="_blank">
             <text x="50%" y="70%" font-size="15" font-family="Arial, sans-serif"
                 text-anchor="middle" fill="#0b75b6" text-decoration="underline">
-            https://bioinformatics.um6p.ma/
+            https://bioinformatics.um6p.ma/platform
             </text>
         </a>
     </svg>
