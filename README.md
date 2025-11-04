@@ -101,7 +101,7 @@ jupyter-lab
 
 #### Identify and classify TFs
 
-You can start directly with the notebook [start/1-Start-With-MegaPlantTF.ipynb](./start/1-Start-With-MegaPlantTF.ipynb) Or, you can create your own Python script or notebook. First, make sure the project’s root directory is added to sys.path
+You can start directly with the notebook [test/1-Start-With-MegaPlantTF.ipynb](./test/1-Start-With-MegaPlantTF.ipynb) Or, you can create your own Python script or notebook. First, make sure the project’s root directory is added to sys.path
 
 ```python
 import sys, os
