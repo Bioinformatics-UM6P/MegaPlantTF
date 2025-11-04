@@ -1,84 +1,64 @@
-# MegaPlantTF
-
 <div align="center" style="">
   <br>
-  <img src="./webtool/ui/static/banner/banner-6.png"/ style="height: 6em; width: 12em">
+  <img src="./logo.png"/ style="height: 5em;">
   <br>
   <!-- <h1>GeneLM</h1> -->
   MegaPlantTF: a comprehensive machine learning framework for the identification and classification of plant transcription factors.
   <br>
   <br>
 
-  [![DOI:10.1101/2025.03.20.644312](https://zenodo.org/badge/DOI/10.1093/bib/bbaf311.svg)](https://doi.org/10.1093/bib/bbaf311)
+  [![DOI:10.1101/2025.03.20.644312](https://zenodo.org/badge/DOI/10.1093/bib/bbaf311.svg)]()
   [![Hugging Face](https://img.shields.io/badge/Hugging_Face-MegaPlantTF-orange?style=flat&logo=HuggingFace&logoColor=)](https://huggingface.co/Genereux-akotenou/genomics-tf-prediction)
   [![Conda](https://img.shields.io/badge/Conda-Supported-brightgreen?style=flat&logo=anaconda&logoColor=white)](https://anaconda.org/bioinformatics-um6p/megaplanttf)
 </div>
 
-`MegaPlantTF` is a machine learning–based framework designed to identify and classify plant transcription factors (TFs) across multiple species.
-The project leverages curated data from PlantTFDB and advanced k-mer–based feature representations to train robust, family-specific binary classifiers.
-By integrating feature selection (ANOVA), ensemble learning, and interpretable post-processing, `MegaPlantTF` provides both state-of-the-art prediction accuracy and user-friendly analysis tools for TF research.
+## MegaPlantTF
 
-With `MegaPlantTF`, you can:
+`MegaPlantTF` is the first machine learning–based framework designed to identify and classify plant transcription factors (TFs) across multiple species. The project leverages curated data from [PlantTFDB](https://planttfdb.gao-lab.org/) and advanced k-mer–based feature representations to train robust, family-specific binary classifiers. With `MegaPlantTF`, you can:
 
-- 🌱 Predict Transcription Factors: Identify and classify TF families from plant proteomes using pretrained binary and stacking models.
-- 🧬 K-mer Embedding for Proteins: Convert protein sequences into numerical k-mer feature vectors for model inference.
-- 📊 Comprehensive Evaluation: Generate detailed classification reports with accuracy, precision, recall, F1-score, and confidence thresholds.
-- ⚙️ Flexible Inference Options: Apply max-voting or two-stage stacking classifiers for improved family-level predictions.
-- 🧠 Integrate with PyGenomics: Seamlessly run MegaPlantTF as part of the pygenomics suite for reproducible analysis pipelines.
+- Predict Transcription Factors: Identify and classify TF families from plant proteomes using pretrained binary and stacking models.
+- Comprehensive Evaluation: Generate detailed classification reports with accuracy, precision, recall, F1-score, and confidence thresholds.
+- Flexible Inference Options: Apply max-voting or two-stage stacking classifiers for improved family-level predictions.
+  
+<br>
+<div style="padding: 0.5em; background: #0b75b6; color: #fff; font-size: 1.1em;">
+1- Install MegaPlantTF
+</div>
+<!-- ## 1- Install MegaPlantTF -->
 
-<!-- `pygenomics` is an all-in-one tool designed for the analysis and classification of genomic data using advanced machine learning techniques. The project focuses on creating and utilizing models trained on various gene families to predict and classify sequences based on k-mer methods. 
-With `pygenomics`, you can:
-- **Access Pretrained Models**: Utilize pretrained models for different gene families.
-- **K-mer Methods for Sequence Classification**: Represent and classify data using k-mer methods.
-- **Generate Detailed Reports**: Produce comprehensive classification reports with metrics such as F1 score, recall, accuracy, precision, and confusion matrices.
-- **Flexible Prediction Models**: Employ both single k-mer size or multi k-mer models for your predictions. -->
+#### Step 1: Create & Activate Conda Environment
 
-
-## 1- Setup Environment
-
-### Step 1: Create Conda Environment
-
-First, create the `pygenomics` environment from the provided YAML file.
+Open your terminal in the current folder then create the `MegaPlantTF` environment from the provided YAML file.
 
 ```bash
-cd pygenomics
-conda env create -f ./pygenomics.yml
+cd MegaPlantTF
+conda env create -f MegaPlantTF.yml
 ```
 
-### Step 2: Activate Conda Environment
-
-Activate the pygenomics environment.
+Activate the MegaPlantTF environment.
 
 ```bash
-conda activate pygenomics
+conda activate MegaPlantTF
 ```
 
-### Step 3: Install Jupyter Kernel
-
-Install the environment as a Jupyter Notebook kernel.
-
+#### Step 2: Register Environment in Jupyter
 ```bash
-pip install ipykernel
-python -m ipykernel install --user --name pygenomics --display-name "PyGenomics"
+python -m ipykernel install --user --name MegaPlantTF --display-name "MegaPlantTF"
 ```
 
-### Step 4: Verify Installation
+#### Step 3: Start Jupyter Notebook
 
-Verify that the kernel is installed correctly.
-
-```bash
-jupyter kernelspec list
-```
-
-### Step 5: Start Jupyter Notebook
-
-Start Jupyter Notebook to begin working with PyGenomics.
+Start Jupyter Notebook to begin working with MegaPlantTF.
 
 ```bash
 jupyter notebook
 ```
 
-## 2- Build pretrained model
+<br>
+<div style="padding: 0.5em; background: #0b75b6; color: #fff; font-size: 1.1em;">
+2- Build pretrained model
+</div>
+<!-- ## 2- Build pretrained model -->
 
 We have to move into notebook folder and execute the python file named `pyrunner`
 
