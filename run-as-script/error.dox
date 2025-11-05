@@ -1,0 +1,11 @@
+ from pandas.core.window.ewm import (
+  File "/home/biolab-office-1/anaconda3/envs/MegaPlantTF/lib/python3.11/site-packages/pandas/core/window/ewm.py", line 11, in <module>
+    import pandas._libs.window.aggregations as window_aggregations
+ImportError: /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.29' not found (required by /home/biolab-office-1/anaconda3/envs/MegaPlantTF/lib/python3.11/site-packages/pandas/_libs/window/aggregations.cpython-311-x86_64-linux-gnu.so)
+(MegaPlantTF) biolab-office-1@biolaboffice1:~/DATALAB/2025/MegaPlantTF/run-as-script$ conda install -c conda-forge libstdcxx-ng
+Channels:
+ - conda-forge
+ - defaults
+Platform: linux-64
+Collecting package metadata (repodata.json): done
+Solving environment: done

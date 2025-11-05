@@ -6,7 +6,10 @@ workshop/.ipynb_checkpoints/1-hands-on-MegaPlantTF-checkpoint.ipynb
 workshop/BLAST/utils/__pycache__/metric.cpython-311.pyc
 workshop/BLAST/utils/__pycache__/metric.cpython-311.pyc
 pretrained/__pycache__/histogram.cpython-311.pyc
+/data/testset-full/k2/testset.csv
 /data/testset-full/k3/testset.csv
+/data/testset-full/k4/testset.csv
+/data/testset-full/k5/testset.csv
 /workshop/BLAST/blast_result.txt
 workshop/BLAST/utils/__pycache__/metric.cpython-311.pyc
 .ipynb_checkpoints

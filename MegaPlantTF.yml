@@ -27,7 +27,6 @@ dependencies:
     - numba
     - numpy
     - optuna
-    - pandas
     - panel
     - ipykernel
     - papermill
@@ -55,3 +54,4 @@ dependencies:
         - shap
         - lime
         - biopython
+        - pandas
