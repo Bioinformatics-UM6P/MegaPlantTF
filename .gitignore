@@ -11,3 +11,4 @@ pretrained/__pycache__/histogram.cpython-311.pyc
 workshop/BLAST/utils/__pycache__/metric.cpython-311.pyc
 .ipynb_checkpoints
 .vscode/
+test/results/

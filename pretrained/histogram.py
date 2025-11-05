@@ -12,6 +12,7 @@ import shap
 import lime
 import lime.lime_tabular
 import os, json
+from sklearn.preprocessing import label_binarize
 
 class GenBoard:
     def __init__(self, dataframe: pd.DataFrame):
@@ -696,3 +697,200 @@ class GenBoard:
         
         # Output the HTML tables
         display(HTML(display_html))
+
+    def show_roc_curve(
+        self,
+        true_label,
+        class_mapping_rules,
+        voting_method="Max Voting",
+        voting_threshold=0.5,
+        save_path=None,
+        figsize=(10, 8)
+    ):
+        """
+        Compute and display ROC curves for each class and macro-average ROC.
+        Optionally saves the figure as a PNG.
+        """
+        # --- Step 1: Compute final predictions (same voting logic as in show_eval_metric)
+        if voting_method == 'Max Voting':
+            prob_matrix = self.prediction.copy()
+        elif voting_method == 'Two-Stage Voting' and self.two_stage_prediction is not None:
+            prob_matrix = self.two_stage_prediction.copy()
+        else:
+            raise ValueError("Unsupported or missing voting method/prediction data")
+
+        # --- Step 2: Prepare labels
+        y_true = np.array(true_label)
+        y_score = prob_matrix.values
+        class_names = list(prob_matrix.columns)
+        y_bin = label_binarize(y_true, classes=list(class_mapping_rules.values()))
+
+        n_classes = y_bin.shape[1]
+
+        # --- Step 3: Compute ROC and AUC for each class
+        fpr, tpr, roc_auc = {}, {}, {}
+        for i in range(n_classes):
+            fpr[i], tpr[i], _ = metrics.roc_curve(y_bin[:, i], y_score[:, i])
+            roc_auc[i] = metrics.auc(fpr[i], tpr[i])
+
+        # --- Step 4: Compute macro-average ROC curve and AUC
+        all_fpr = np.unique(np.concatenate([fpr[i] for i in range(n_classes)]))
+        mean_tpr = np.zeros_like(all_fpr)
+        for i in range(n_classes):
+            mean_tpr += np.interp(all_fpr, fpr[i], tpr[i])
+        mean_tpr /= n_classes
+
+        fpr["macro"], tpr["macro"] = all_fpr, mean_tpr
+        roc_auc["macro"] = metrics.auc(fpr["macro"], tpr["macro"])
+
+        # --- Step 5: Plot ROC curves
+        fig, ax = plt.subplots(figsize=figsize)
+        colors = plt.cm.tab10(np.linspace(0, 1, n_classes))
+        for i, color in zip(range(n_classes), colors):
+            ax.plot(
+                fpr[i],
+                tpr[i],
+                color=color,
+                lw=2,
+                label=f"{class_names[i]} (AUC = {roc_auc[i]:.2f})",
+            )
+
+        # Plot macro-average ROC
+        ax.plot(
+            fpr["macro"],
+            tpr["macro"],
+            color="black",
+            linestyle="--",
+            lw=3,
+            label=f"Macro-average (AUC = {roc_auc['macro']:.2f})",
+        )
+
+        # Random baseline
+        ax.plot([0, 1], [0, 1], "r--", lw=1, label="Chance")
+
+        ax.set_xlim([0.0, 1.0])
+        ax.set_ylim([0.0, 1.05])
+        ax.set_xlabel("False Positive Rate")
+        ax.set_ylabel("True Positive Rate")
+        ax.set_title("ROC Curves per Class and Macro Average")
+        ax.legend(loc="lower right")
+        plt.tight_layout()
+
+        # --- Step 6: Display and optionally save
+        display(fig)
+        if save_path:
+            os.makedirs(os.path.dirname(save_path), exist_ok=True)
+            fig.savefig(save_path, bbox_inches="tight", dpi=300)
+            print(f"ROC curve saved to {save_path}")
+
+        plt.close(fig)
+
+    def compute_and_save_roc_per_family(
+        self,
+        true_label,
+        class_mapping_rules,
+        voting_method="Max Voting",
+        voting_threshold=0.5,
+        save_folder="results/roc_data",
+    ):
+        """
+        Compute ROC curves per gene family and save data + plots.
+        Generates one plot per family and one JSON file per model run.
+        """
+        # --- Step 1: Choose prediction source
+        if voting_method == "Max Voting":
+            prob_matrix = self.prediction.copy()
+        elif voting_method == "Two-Stage Voting" and self.two_stage_prediction is not None:
+            prob_matrix = self.two_stage_prediction.copy()
+        else:
+            raise ValueError("Unsupported or missing voting method/prediction data")
+
+        # --- Step 2: Align classes (skip Unknown etc.)
+        common_classes = [c for c in prob_matrix.columns if c in class_mapping_rules]
+        filtered_mapping = {c: class_mapping_rules[c] for c in common_classes}
+
+        y_true = np.array(true_label)
+        y_score = prob_matrix[common_classes].values
+        y_bin = label_binarize(y_true, classes=list(filtered_mapping.values()))
+
+        os.makedirs(save_folder, exist_ok=True)
+
+        roc_dict = {}
+
+        # --- Step 3: Compute and save per-family ROC
+        for i, fam in enumerate(common_classes):
+            if i >= y_bin.shape[1]:
+                # Skip mismatch if class not in label set
+                continue
+            fpr, tpr, _ = metrics.roc_curve(y_bin[:, i], y_score[:, i])
+            auc_value = metrics.auc(fpr, tpr)
+
+            roc_dict[fam] = {
+                "fpr": fpr.tolist(),
+                "tpr": tpr.tolist(),
+                "auc": float(auc_value),
+            }
+
+            # Plot and save individual ROC
+            fig, ax = plt.subplots(figsize=(6, 5))
+            ax.plot(fpr, tpr, color="#1f77b4", lw=2, label=f"{fam} (AUC={auc_value:.3f})")
+            ax.plot([0, 1], [0, 1], "r--", lw=1)
+            ax.set_xlim([0.0, 1.0])
+            ax.set_ylim([0.0, 1.05])
+            ax.set_xlabel("False Positive Rate")
+            ax.set_ylabel("True Positive Rate")
+            ax.set_title(f"ROC Curve — {fam} (k={self.kmer_size})")
+            ax.legend(loc="lower right")
+            plt.tight_layout()
+
+            fam_dir = os.path.join(save_folder, "plots")
+            os.makedirs(fam_dir, exist_ok=True)
+            plot_path = os.path.join(fam_dir, f"{fam}_k{self.kmer_size}.png")
+            fig.savefig(plot_path, dpi=300)
+            plt.close(fig)
+
+        # --- Step 4: Save all ROC data for later comparison
+        json_path = os.path.join(save_folder, f"roc_data_k{self.kmer_size}.json")
+        with open(json_path, "w") as f:
+            json.dump(roc_dict, f, indent=4)
+
+        print(f"✅ Saved ROC data and plots for k={self.kmer_size} → {save_folder}")
+
+    def compare_roc_across_k(family_name, roc_folders, save_path=None):
+        """
+        Load saved ROC JSONs from multiple k-folders and overlay curves for one family.
+        Example roc_folders: ["results/k3", "results/k4", "results/k5"]
+        """
+        plt.figure(figsize=(7, 6))
+
+        for folder in roc_folders:
+            json_files = [f for f in os.listdir(folder) if f.endswith(".json")]
+            if not json_files:
+                continue
+            json_path = os.path.join(folder, json_files[0])
+
+            with open(json_path, "r") as f:
+                roc_dict = json.load(f)
+
+            if family_name not in roc_dict:
+                continue
+
+            roc_data = roc_dict[family_name]
+            fpr = np.array(roc_data["fpr"])
+            tpr = np.array(roc_data["tpr"])
+            auc_val = roc_data["auc"]
+
+            # Extract k value from folder name
+            k_label = os.path.basename(folder).replace("k", "")
+            plt.plot(fpr, tpr, lw=2, label=f"k={k_label} (AUC={auc_val:.3f})")
+
+        plt.plot([0, 1], [0, 1], "k--", lw=1)
+        plt.xlabel("False Positive Rate")
+        plt.ylabel("True Positive Rate")
+        plt.title(f"ROC Comparison — {family_name}")
+        plt.legend(loc="lower right")
+        plt.tight_layout()
+
+        if save_path:
+            plt.savefig(save_path, dpi=300)
+        plt.show()
