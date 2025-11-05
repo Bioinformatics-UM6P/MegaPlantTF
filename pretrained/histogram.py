@@ -845,7 +845,9 @@ class GenBoard:
 
             fam_dir = os.path.join(save_folder, "plots")
             os.makedirs(fam_dir, exist_ok=True)
-            plot_path = os.path.join(fam_dir, f"{fam}_k{self.kmer_size}.png")
+            safe_fam_name = fam.replace("/", "__").replace("\\", "__").replace(" ", "_")
+            plot_path = os.path.join(fam_dir, f"{safe_fam_name}_k{self.kmer_size}.png")
+            os.makedirs(os.path.dirname(plot_path), exist_ok=True)
             fig.savefig(plot_path, dpi=300)
             plt.close(fig)
 
@@ -856,7 +858,7 @@ class GenBoard:
 
         print(f"✅ Saved ROC data and plots for k={self.kmer_size} → {save_folder}")
 
-    def compare_roc_across_k(family_name, roc_folders, save_path=None):
+    def compare_roc_across_k(self, family_name, roc_folders, save_path=None):
         """
         Load saved ROC JSONs from multiple k-folders and overlay curves for one family.
         Example roc_folders: ["results/k3", "results/k4", "results/k5"]

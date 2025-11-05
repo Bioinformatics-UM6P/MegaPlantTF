@@ -1,7 +1,15 @@
 import argparse, os, sys, uuid
 import pandas as pd
 from datetime import datetime
+
+# add the project root directory to the path
+current_directory = os.getcwd()
+root_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+sys.path.append(root_directory)
+
 from pretrained.predictor import SingleKModel
+
+
 
 def main():
     # args
@@ -32,23 +40,18 @@ def main():
     # run
     model = SingleKModel(kmer_size=args.kmer)
     model.load(args.fasta, format="fasta")
-    # 3️⃣ Run inference
     genboard = model.predict()
 
-    # 4️⃣ Build static HTML report
-    print("🧠 Generating interactive HTML report...")
+    print("Generating interactive HTML report...")
     html_report = build_html_report(genboard, args.voting, args.threshold)
-
-    # 5️⃣ Save HTML to file
     with open(args.output, "w") as f:
         f.write(html_report)
-    print(f"✅ Report saved: {args.output}")
+    print(f"Report saved: {args.output}")
 
-    # 6️⃣ Export final predictions as CSV
     final_pred = export_final_predictions(genboard, args.voting, args.threshold)
     csv_output = args.output.replace(".html", "_predictions.csv")
     final_pred.to_csv(csv_output, index=False)
-    print(f"✅ Predictions saved: {csv_output}")
+    print(f"Predictions saved: {csv_output}")
 
 
 def export_final_predictions(genboard, voting_method, threshold):
