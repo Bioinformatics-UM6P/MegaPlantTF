@@ -1,6 +1,6 @@
 def show_metrics(true_labels, predicted_labels):
     import sklearn.metrics as metrics
-    from IPython.core.display import display, HTML
+    from IPython.display import display, HTML
     
     # accuracy
     accuracy = metrics.accuracy_score(true_labels, predicted_labels)

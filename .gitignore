@@ -19,3 +19,4 @@ test/BLAST/database/pygenomics_ref_db.pin
 test/BLAST/database/pygenomics_ref_db.pjs
 pretrained/__pycache__/
 test/BLAST/blast_result.txt
+test/BLAST/utils/__pycache__/
