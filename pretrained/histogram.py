@@ -794,9 +794,15 @@ class GenBoard:
         save_folder="results/roc_data",
     ):
         """
-        Compute ROC curves per gene family and save data + plots.
-        Generates one plot per family and one JSON file per model run.
+        Compute ROC curves and classification metrics per gene family.
+        Saves ROC data, plots, and per-family metrics for later comparison.
         """
+        import numpy as np
+        import os, json
+        import matplotlib.pyplot as plt
+        from sklearn import metrics
+        from sklearn.preprocessing import label_binarize
+
         # --- Step 1: Choose prediction source
         if voting_method == "Max Voting":
             prob_matrix = self.prediction.copy()
@@ -817,18 +823,33 @@ class GenBoard:
 
         roc_dict = {}
 
-        # --- Step 3: Compute and save per-family ROC
+        # --- Step 3: Compute and save per-family ROC + metrics
         for i, fam in enumerate(common_classes):
             if i >= y_bin.shape[1]:
-                # Skip mismatch if class not in label set
                 continue
-            fpr, tpr, _ = metrics.roc_curve(y_bin[:, i], y_score[:, i])
+
+            y_true_bin = y_bin[:, i]
+            y_pred_prob = y_score[:, i]
+            y_pred_label = (y_pred_prob >= voting_threshold).astype(int)
+
+            # ROC
+            fpr, tpr, _ = metrics.roc_curve(y_true_bin, y_pred_prob)
             auc_value = metrics.auc(fpr, tpr)
+
+            # Additional metrics
+            precision = metrics.precision_score(y_true_bin, y_pred_label, zero_division=0)
+            recall = metrics.recall_score(y_true_bin, y_pred_label, zero_division=0)
+            f1 = metrics.f1_score(y_true_bin, y_pred_label, zero_division=0)
+            acc = metrics.accuracy_score(y_true_bin, y_pred_label)
 
             roc_dict[fam] = {
                 "fpr": fpr.tolist(),
                 "tpr": tpr.tolist(),
                 "auc": float(auc_value),
+                "precision": float(precision),
+                "recall": float(recall),
+                "f1": float(f1),
+                "accuracy": float(acc),
             }
 
             # Plot and save individual ROC
@@ -847,16 +868,15 @@ class GenBoard:
             os.makedirs(fam_dir, exist_ok=True)
             safe_fam_name = fam.replace("/", "__").replace("\\", "__").replace(" ", "_")
             plot_path = os.path.join(fam_dir, f"{safe_fam_name}_k{self.kmer_size}.png")
-            os.makedirs(os.path.dirname(plot_path), exist_ok=True)
             fig.savefig(plot_path, dpi=300)
             plt.close(fig)
 
-        # --- Step 4: Save all ROC data for later comparison
+        # --- Step 4: Save all ROC + metric data for later comparison
         json_path = os.path.join(save_folder, f"roc_data_k{self.kmer_size}.json")
         with open(json_path, "w") as f:
             json.dump(roc_dict, f, indent=4)
 
-        print(f"✅ Saved ROC data and plots for k={self.kmer_size} → {save_folder}")
+        print(f"✅ Saved ROC and metric data for k={self.kmer_size} → {save_folder}")
 
     def compare_roc_across_k(self, family_name, roc_folders, save_path=None):
         """
