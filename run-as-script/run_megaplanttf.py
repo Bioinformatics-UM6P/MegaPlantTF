@@ -4,6 +4,7 @@ import numpy as np
 from datetime import datetime
 import plotly.express as px
 import matplotlib.pyplot as plt
+from Bio import SeqIO
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_directory = os.path.abspath(os.path.join(script_dir, os.pardir))
@@ -27,9 +28,7 @@ def main():
 
     output_dir = args.output
     os.makedirs(output_dir, exist_ok=True)
-    
     args.output = os.path.join(output_dir, f"MegaPlantTF_Dashboard_{args.jobid}.html")
-
     csv_output = args.output.replace(".html", "_predictions.csv")
 
     print(f"\nRunning MegaPlantTF...")
@@ -42,20 +41,33 @@ def main():
     print(f"Dashboard file : {os.path.basename(args.output)}")
     print("--------------------------------------------------")
 
+    # call model
     model = SingleKModel(kmer_size=args.kmer)
     model.load(args.fasta, format="fasta")
     genboard = model.predict()
 
+    # retrieve fasta ids & get prediction
+    fasta_ids = [record.description for record in SeqIO.parse(args.fasta, "fasta")]
     preds = genboard.two_stage_prediction if args.voting == "Two-Stage Voting" else genboard.prediction
     df = preds.copy()
+
+    # ----------------------------------------------------
     df["Predicted_Class"] = df.idxmax(axis=1)
+
+    if len(fasta_ids) == len(df):
+        df["Sequence_ID"] = fasta_ids
+    else:
+        print(f"Warning: FASTA ({len(fasta_ids)}) and predictions ({len(df)}) differ in length.")
+        df["Sequence_ID"] = [f"seq_{i}" for i in range(len(df))]
+
     numeric_cols = df.select_dtypes(include=["float", "int"]).columns
     df["Max_Prob"] = df[numeric_cols].max(axis=1)
-    df["Sequence_ID"] = df.index.astype(str)
+    df = df[["Sequence_ID", "Predicted_Class", "Max_Prob"] + list(numeric_cols)]
 
     df.to_csv(csv_output, index_label="Sequence_ID")
-
     print(f"✅ Predictions saved: {csv_output}")
+    # ----------------------------------------------------
+
 
     html_dashboard = build_html_dashboard(df, args, jobid=args.jobid)
     with open(args.output, "w") as f:
