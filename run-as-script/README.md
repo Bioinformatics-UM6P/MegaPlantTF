@@ -1,84 +1,56 @@
 <div align="center" style="">
-  <br>
-  <img src="../webtool/ui/static/banner/banner-6.png"/ style="height: 6em; width: 12em">
-  <br>
-  <!-- <h1>GeneLM</h1> -->
-  GeneLM: Gene Language Model for Translation Initiation Site Prediction in Bacteria
-  <br>
-  <br>
-  <p>****</p>
-  <p>GeneLM-Script Runner (split - parallel - merge)</p>
+    <br>
+    <img src="../logo.png"/ style="height: 5em;">
+    <br>
+    <br>
+    MegaPlantTF: a comprehensive machine learning framework for the identification and classification of plant transcription factors.
+    <br>
+    <br>
+    <p>****</p>
+    <p>MegaPlantTF-Script Runner</p>
 </div>
 
 ---
 
 #### Quick start
 
-First of all you need to setup genelm environment tobe able to annotate gene using our model.
+First of all you need to setup MegaPlantTF conda environment tobe able to predict TF.
+
 - Download:
-Download only this folder — it’s enough to run the annotation scripts:
-`GeneLM/run-as-script`
+Download the whole project but make sre to be into this folder to run the annotation scripts (after you install the env):
+`MegaPlantTF/run-as-script`
 <br>
 - Setup:
-```bash
-python -m venv .genelm_env
-source .genelm_env/bin/activate
-pip install -r genelm/requirements.txt 
-```
+Please refer to main README(clone - env - pull models)
 <br>
+
+
 
 #### Usage
-**1. Single sequence**
+**1. Start fast**
 
-Use this when your FASTA contains one record (or when you want to process a specific record by itself). It runs the full AnnotatorPipeline once and writes a single GFF/CSV result.
-`--device` lets you force CPU or select a GPU (e.g., cuda:0).
-If you pass `--out_dir`, the produced file is copied there; otherwise it stays in `__files__/results`.
 ```bash
-python run_single.py \
-  --in_fasta smoke-test/sequence_tiny.fasta \
-  --format GFF \
-  --device cpu \
-  --out_dir __files__/results
+python run_megaplanttf.py --fasta=__temp__/Ach_pep_kiwi-small.fas --kmer=3
 ```
 <br>
 
-**2. Batch (multi-FASTA)**
-
-Use this for a multi-FASTA: it automatically splits the input into per-record FASTAs, runs each one in parallel (set with `--workers`), and then merges all per-record outputs into a single file.
-
-- For GPU, set `--device cuda:0` (or similar) and keep `--workers 1`.
-- For CPU, set `--device cpu` and increase `--workers` to match your core count.
+**2. Detailed**
   
 ```bash
-python run_batch.py \
-  --input_fasta smoke-test/sequence_tiny_mixt.fasta \
-  --format GFF \
-  --device cpu \
-  --workers 8 \
-  --job_name test-smoke \
-  --output __files__/results/t-smoke.gff
+python run_megaplanttf.py \
+  --fasta __temp__/Ach_pep_kiwi-small.fas \
+  --kmer 3 \
+  --voting 'Two-Stage Voting' #or  'Max Voting' (leave to default 'Two-Stage Voting' )\
+  --output "path to ouput folder. default is ouput folder in current script active directory" \
+  --jobid "Unique job ID for naming outputs. but can be generated automatically" \
 ```
 
-- Device control
-  - --device cpu → hides GPUs (CUDA_VISIBLE_DEVICES="")
-  - --device cuda → auto GPU (as per core.py)
-  - --device cuda:0 → pins to GPU 0 (exposes only index 0)
+**Ouput**
 
-- Workers
-  - GPU: --workers 1
-  - CPU: --workers ≈ number of cores
+Be like:
 
-- Output
-  - Per-chunk outputs go to a temp dir (deleted unless --keep_temp)
-  - Final merged file goes to --output path
-<br>
-
-**3. HPC (SLURM)**
-
-Use the provided SLURM helper to run the batch workflow on a cluster.
-Arguments: `INPUT_FASTA FORMAT DEVICE WORKERS OUT_FILE JOB_NAME`.
-Pick DEVICE=cpu for CPU nodes or cuda:0 on a GPU partition (and set `#SBATCH --gres=gpu:1` inside the script if needed).
-
-```bash
-sbatch hpc_slurm_example.sh  data/multi.fna GFF cpu 16 __files__/results/merged.gff my_job
+```
+output/
+ ├── MegaPlantTF_Dashboard_<jobid>.html
+ └── MegaPlantTF_Dashboard_<jobid>_predictions.csv
 ```
