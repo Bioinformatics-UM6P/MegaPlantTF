@@ -5,8 +5,8 @@ from datetime import datetime
 import plotly.express as px
 import matplotlib.pyplot as plt
 
-current_directory = os.getcwd()
-root_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+script_dir = os.path.dirname(os.path.abspath(__file__))
+root_directory = os.path.abspath(os.path.join(script_dir, os.pardir))
 sys.path.append(root_directory)
 
 from pretrained.predictor import SingleKModel
@@ -25,10 +25,10 @@ def main():
     if args.jobid is None:
         args.jobid = datetime.now().strftime("%Y%m%d_%H%M%S_") + str(uuid.uuid4())[:8]
 
-    output_dir = os.path.join(os.getcwd(), "output")
+    output_dir = args.output
     os.makedirs(output_dir, exist_ok=True)
-    if args.output is None:
-        args.output = os.path.join(output_dir, f"MegaPlantTF_Dashboard_{args.jobid}.html")
+    
+    args.output = os.path.join(output_dir, f"MegaPlantTF_Dashboard_{args.jobid}.html")
 
     csv_output = args.output.replace(".html", "_predictions.csv")
 
@@ -51,6 +51,8 @@ def main():
     df["Predicted_Class"] = df.idxmax(axis=1)
     numeric_cols = df.select_dtypes(include=["float", "int"]).columns
     df["Max_Prob"] = df[numeric_cols].max(axis=1)
+    df["Sequence_ID"] = df.index.astype(str)
+
     df.to_csv(csv_output, index_label="Sequence_ID")
 
     print(f"✅ Predictions saved: {csv_output}")
@@ -99,7 +101,6 @@ def build_html_dashboard(df, args, jobid):
     )
 
     return html_filled
-
 
 
 

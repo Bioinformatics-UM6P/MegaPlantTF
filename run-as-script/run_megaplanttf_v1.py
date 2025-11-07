@@ -2,8 +2,8 @@ import argparse, os, sys, uuid
 import pandas as pd
 from datetime import datetime
 
-current_directory = os.getcwd()
-root_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+script_dir = os.path.dirname(os.path.abspath(__file__))
+root_directory = os.path.abspath(os.path.join(script_dir, os.pardir))
 sys.path.append(root_directory)
 
 from pretrained.predictor import SingleKModel
