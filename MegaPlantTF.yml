@@ -1,4 +1,4 @@
-name: MegaPlantTF2
+name: MegaPlantTF
 
 channels:
   - conda-forge

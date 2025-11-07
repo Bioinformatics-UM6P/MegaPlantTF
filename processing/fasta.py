@@ -59,8 +59,8 @@ def read_fas(file_path, domaine="ACDEFGHIKLMNPQRSTVWY"):
                 meta_data = line
                 current_sequence = ''
             elif is_fasta_format:
-                if line == '' or line.startswith('>'):
-                    raise ValueError("FASTA format error: sequence missing or misplaced '>' character.")
+                if line == '':
+                    continue
                 current_sequence += line
         
         if current_id:
