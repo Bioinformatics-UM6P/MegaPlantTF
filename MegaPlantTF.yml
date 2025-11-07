@@ -1,4 +1,4 @@
-name: MegaPlantTF
+name: MegaPlantTF2
 
 channels:
   - conda-forge
@@ -41,7 +41,7 @@ dependencies:
         - pandas==2.3.3
         - tensorboard==2.16.2
         - tensorboard-data-server==0.7.2
-        - tensorflow==2.20.0
+        - tensorflow
         - tensorflow-io-gcs-filesystem==0.36.0
         - pyarrow==14.0.2
         - pyviz_comms==3.0.0
