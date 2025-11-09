@@ -69,6 +69,13 @@ python -m ipykernel install --user --name MegaPlantTF --display-name "MegaPlantT
 ![Step 2 - Use MegaPlantTF for TF prediction in plant](https://img.shields.io/badge/Step%202-Use%20MegaPlantTF%20for%20TF%20prediction%20in%20plant-0b75b6?style=for-the-badge&logo=&logoColor=white)
 
 ### 1. Running online Webserver
+<div style="border-left: 5px solid #ddd; padding: 2px 15px; background-color: #f6f8fa;">
+<h5>📦 Quick Start</h5>
+The easiest way to use **MegaPlantTF** is through the online web server available at: <a href="https://bioinformatics.um6p.ma/MegaPlantTF">https://bioinformatics.um6p.ma/MegaPlantTF</a>. You can also watch a short demo showing how it works below:
+<br>
+<a href="https://genereux-akotenou.github.io/assets/images/mega-plant-tf-demo.mp4" target="_blank"><img src="./demo.png" alt="Watch the video" /></a>
+</div>
+
 > #### 📦 **Quick Start**
 > The easiest way to use **MegaPlantTF** is through the online web server available at: [https://bioinformatics.um6p.ma/MegaPlantTF](https://bioinformatics.um6p.ma/MegaPlantTF). You can also watch a short demo showing how it works below:
 >
