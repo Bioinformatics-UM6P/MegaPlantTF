@@ -9,13 +9,13 @@
         <!-- Main text -->
         <text x="50%" y="45%" font-size="16" font-family="Arial, sans-serif"
                 text-anchor="middle" fill="#000">
-            🔗 Soon available online at
+            Webserver available online at: 
         </text>
         <!-- Clickable link -->
-        <a href="https://bioinformatics.um6p.ma/platform" target="_blank">
+        <a href="https://bioinformatics.um6p.ma/MegaPlantTF" target="_blank">
             <text x="50%" y="70%" font-size="15" font-family="Arial, sans-serif"
                 text-anchor="middle" fill="#0b75b6" text-decoration="underline">
-            https://bioinformatics.um6p.ma/platform
+            https://bioinformatics.um6p.ma/MegaPlantTF
             </text>
         </a>
     </svg>
@@ -26,7 +26,7 @@
 
   <!-- [![DOI:10.1101/2025.03.20.644312](https://zenodo.org/badge/DOI/10.1093/bib/bbaf311.svg)]() -->
   [![Hugging Face](https://img.shields.io/badge/Hugging_Face-MegaPlantTF-orange?style=flat&logo=HuggingFace&logoColor=)](https://huggingface.co/Genereux-akotenou/genomics-tf-prediction)
-  <!-- [![Conda](https://img.shields.io/badge/Conda-Supported-brightgreen?style=flat&logo=anaconda&logoColor=white)](https://anaconda.org/bioinformatics-um6p/megaplanttf) -->
+  [![Conda](https://img.shields.io/badge/Conda-Supported-brightgreen?style=flat&logo=anaconda&logoColor=white)](https://bioinformatics.um6p.ma/MegaPlantTF/documentation)
 </div>
 
 <br>
@@ -67,6 +67,15 @@ python -m ipykernel install --user --name MegaPlantTF --display-name "MegaPlantT
 <br>
 
 ![Step 2 - Use MegaPlantTF for TF prediction in plant](https://img.shields.io/badge/Step%202-Use%20MegaPlantTF%20for%20TF%20prediction%20in%20plant-0b75b6?style=for-the-badge&logo=&logoColor=white)
+
+### 1. Running online Webserver
+> #### 📦 **Quick Start**
+> The easiest way to use **MegaPlantTF** is through the online web server available at: [https://bioinformatics.um6p.ma/MegaPlantTF](https://bioinformatics.um6p.ma/MegaPlantTF). You can also watch a short demo showing how it works below:
+>
+> <a href="https://genereux-akotenou.github.io/assets/images/mega-plant-tf-demo.mp4" target="_blank"><img src="./demo.png" alt="Watch the video" /></a>
+
+
+### 1. Running locally
 
 Before proceeding, make sure you’ve completed **Step 1** and correctly set up the **MegaPlantTF conda environment**.  
 In this step, you’ll download the pretrained model weights, copy them to the right folders, and start the prediction workflow.
@@ -121,6 +130,7 @@ genboard = kmodel.predict()
 genboard.display()
 ```
 <img src="genboard.png" alt="genbaord beta image" style="width: 97%;"/>
+
 
 
 <br>
