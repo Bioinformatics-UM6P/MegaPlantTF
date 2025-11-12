@@ -43,7 +43,7 @@ class SingleKModel:
             
         if format == "fasta" and type == "gene_file":
             self.TestSet = fasta.read_fas(fasta_path)
-        elif format == "csv" and type == "gene_file":
+        elif format == "csv" and type == "gene_file": 
             self.TestSet = fasta.read_csv(fasta_path)
         elif format == "csv" and type == "kmer_file":
             self.TestSet = pd.read_csv(fasta_path)
