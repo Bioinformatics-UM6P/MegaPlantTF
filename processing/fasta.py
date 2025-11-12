@@ -78,12 +78,19 @@ def read_fas(file_path, domaine="ACDEFGHIKLMNPQRSTVWY"):
     df = pd.DataFrame(sequences)
     
     # DNA content check
+    # dna_bases = set("ATCGUN")
+    # total_chars = ''.join(df['sequence']).upper()
+    # if len(total_chars) > 0:
+    #     dna_fraction = sum(c in dna_bases for c in total_chars) / len(total_chars)
+    #     if dna_fraction > 0.9:
+    #         raise ValueError("Detected DNA/RNA sequences instead of protein sequences.")
     dna_bases = set("ATCGUN")
-    total_chars = ''.join(df['sequence']).upper()
-    if len(total_chars) > 0:
-        dna_fraction = sum(c in dna_bases for c in total_chars) / len(total_chars)
+    first_seq = str(df['sequence'].iloc[0]).upper()
+    if len(first_seq) > 0:
+        dna_fraction = sum(c in dna_bases for c in first_seq) / len(first_seq)
         if dna_fraction > 0.9:
             raise ValueError("Detected DNA/RNA sequences instead of protein sequences.")
+
 
     return df
 
