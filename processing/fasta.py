@@ -59,8 +59,8 @@ def read_fas(file_path, domaine="ACDEFGHIKLMNPQRSTVWY"):
                 meta_data = line
                 current_sequence = ''
             elif is_fasta_format:
-                if line == '' or line.startswith('>'):
-                    raise ValueError("FASTA format error: sequence missing or misplaced '>' character.")
+                if line == '':
+                    continue
                 current_sequence += line
         
         if current_id:
@@ -76,6 +76,15 @@ def read_fas(file_path, domaine="ACDEFGHIKLMNPQRSTVWY"):
         raise ValueError("FASTA format error: no valid sequences found.")
 
     df = pd.DataFrame(sequences)
+    
+    # DNA content check
+    dna_bases = set("ATCGUN")
+    total_chars = ''.join(df['sequence']).upper()
+    if len(total_chars) > 0:
+        dna_fraction = sum(c in dna_bases for c in total_chars) / len(total_chars)
+        if dna_fraction > 0.9:
+            raise ValueError("Detected DNA/RNA sequences instead of protein sequences.")
+
     return df
 
 

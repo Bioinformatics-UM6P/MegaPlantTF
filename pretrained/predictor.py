@@ -1,6 +1,6 @@
 # utils
 import json, sys, os
-current_directory = os.getcwd()
+current_directory = os.path.dirname(os.path.abspath(__file__))
 current_abs_directory = os.path.dirname(os.path.abspath(__file__))
 root_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
 utils_directory = os.path.join(root_directory, 'processing')
@@ -22,10 +22,10 @@ class SingleKModel:
     def __init__(self, kmer_size):
         self.k = kmer_size
         self.domaine="ACDEFGHIKLMNPQRSTVWYX"
-        self.gene_info_path = "../data/gene_info.json"
+        self.gene_info_path = root_directory + "/data/gene_info.json"
         #self.pretained_model_path = "../models/v1-beta/models"
-        self.pretained_model_path = "../models/Binary-Classifier"
-        self.stage2_classifier_path = f"../models/MetaClassifier/META_k{self.k}.keras"
+        self.pretained_model_path = f"{root_directory}/models/Binary-Classifier"
+        self.stage2_classifier_path = f"{root_directory}/models/MetaClassifier/META_k{self.k}.keras"
         self.use_weight = False
         with open(self.gene_info_path, 'r') as json_file:
             self.gene_info = json.load(json_file)
@@ -43,7 +43,7 @@ class SingleKModel:
             
         if format == "fasta" and type == "gene_file":
             self.TestSet = fasta.read_fas(fasta_path)
-        elif format == "csv" and type == "gene_file":
+        elif format == "csv" and type == "gene_file": 
             self.TestSet = fasta.read_csv(fasta_path)
         elif format == "csv" and type == "kmer_file":
             self.TestSet = pd.read_csv(fasta_path)
@@ -115,9 +115,9 @@ class BatchSingleKModel:
         self.k = kmer_size
         self.batch_size = batch_size
         self.domaine = "ACDEFGHIKLMNPQRSTVWYX"
-        self.gene_info_path = "../data/gene_info.json"
-        self.pretained_model_path = "../notebook/Output/Model-ANOVA"
-        self.stage2_classifier_path = f"../notebook/Output/MetaClassifier-ANOVA/META_k{self.k}.keras"
+        self.gene_info_path = root_directory + "/data/gene_info.json"
+        self.pretained_model_path = root_directory + "/notebook/Output/Model-ANOVA"
+        self.stage2_classifier_path = f"{root_directory}/notebook/Output/MetaClassifier-ANOVA/META_k{self.k}.keras"
         self.use_weight = False
         with open(self.gene_info_path, 'r') as json_file:
             self.gene_info = json.load(json_file)
@@ -220,8 +220,8 @@ class OneTestKModel:
     def __init__(self, kmer_size):
         self.k = kmer_size
         self.domaine = "ACDEFGHIKLMNPQRSTVWYX"
-        self.gene_info_path = "../data/gene_info.json"
-        self.pretained_model_path = "../notebook/Output/Model"
+        self.gene_info_path = root_directory + "/data/gene_info.json"
+        self.pretained_model_path = f"{root_directory}/notebook/Output/Model"
         self.use_weight = False
         with open(self.gene_info_path, 'r') as json_file:
             self.gene_info = json.load(json_file)
